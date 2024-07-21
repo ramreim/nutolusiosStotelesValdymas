@@ -18,9 +18,9 @@ namespace ArduinoControlAppGuiSide
         public static Button btnOnD05 = new Button();
         public static Button btnOffD05 = new Button();
 
-        public static List<Control> listas = new List<Control>();
+        private static List<Control> uiControlsList = new List<Control>();
 
-        public static List<Control> Config()
+        public static List<Control> GenerateUIElements()
         {
             btnConnect.Left = 20;
             btnConnect.Top = 20;
@@ -29,7 +29,7 @@ namespace ArduinoControlAppGuiSide
             btnConnect.Text = "Connect";
             btnConnect.Visible = true;
             btnConnect.Tag = "";
-            listas.Add(btnConnect);
+            uiControlsList.Add(btnConnect);
 
             btnOnD02.Left = 20;
             btnOnD02.Top = 50;
@@ -38,7 +38,7 @@ namespace ArduinoControlAppGuiSide
             btnOnD02.Text = "D02 ON";
             btnOnD02.Visible = false;
             btnOnD02.Tag = "CMD_SET_ON_d2_pin";
-            listas.Add(btnOnD02);
+            uiControlsList.Add(btnOnD02);
 
             btnOffD02.Left = 100;
             btnOffD02.Top = btnOnD02.Top;
@@ -47,7 +47,7 @@ namespace ArduinoControlAppGuiSide
             btnOffD02.Text = "D02 OFF";
             btnOffD02.Visible = false;
             btnOffD02.Tag = "CMD_SET_OFF_d2_pin";
-            listas.Add(btnOffD02);
+            uiControlsList.Add(btnOffD02);
 
             btnOnD03.Left = btnOnD02.Left;
             btnOnD03.Top = btnOnD02.Top + 30;
@@ -56,7 +56,7 @@ namespace ArduinoControlAppGuiSide
             btnOnD03.Text = "D03 ON";
             btnOnD03.Visible = false;
             btnOnD03.Tag = "CMD_SET_ON_d3_pin";
-            listas.Add(btnOnD03);
+            uiControlsList.Add(btnOnD03);
 
             btnOffD03.Left = btnOffD02.Left;
             btnOffD03.Top = btnOffD02.Top + 30;
@@ -65,7 +65,7 @@ namespace ArduinoControlAppGuiSide
             btnOffD03.Text = "D03 OFF";
             btnOffD03.Visible = false;
             btnOffD03.Tag = "CMD_SET_OFF_d3_pin";
-            listas.Add(btnOffD03);
+            uiControlsList.Add(btnOffD03);
 
             btnOnD04.Left = btnOnD02.Left;
             btnOnD04.Top = btnOnD03.Top + 30;
@@ -74,7 +74,7 @@ namespace ArduinoControlAppGuiSide
             btnOnD04.Text = "D04 ON";
             btnOnD04.Visible = false;
             btnOnD04.Tag = "CMD_SET_ON_d4_pin";
-            listas.Add(btnOnD04);
+            uiControlsList.Add(btnOnD04);
 
             btnOffD04.Left = btnOffD02.Left;
             btnOffD04.Top = btnOffD03.Top + 30;
@@ -83,7 +83,7 @@ namespace ArduinoControlAppGuiSide
             btnOffD04.Text = "D04 OFF";
             btnOffD04.Visible = false;
             btnOffD04.Tag = "CMD_SET_OFF_d4_pin";
-            listas.Add(btnOffD04);
+            uiControlsList.Add(btnOffD04);
 
             btnOnD05.Left = btnOnD02.Left;
             btnOnD05.Top = btnOnD04.Top + 30;
@@ -92,7 +92,7 @@ namespace ArduinoControlAppGuiSide
             btnOnD05.Text = "D05 ON";
             btnOnD05.Visible = false;
             btnOnD05.Tag = "CMD_SET_ON_d5_pin";
-            listas.Add(btnOnD05);
+            uiControlsList.Add(btnOnD05);
 
             btnOffD05.Left = btnOffD02.Left;
             btnOffD05.Top = btnOffD04.Top + 30;
@@ -101,9 +101,9 @@ namespace ArduinoControlAppGuiSide
             btnOffD05.Text = "D05 OFF";
             btnOffD05.Visible = false;
             btnOffD05.Tag = "CMD_SET_OFF_d5_pin";
-            listas.Add(btnOffD05);
+            uiControlsList.Add(btnOffD05);
 
-            return listas;
+            return uiControlsList;
         }
     }
 }

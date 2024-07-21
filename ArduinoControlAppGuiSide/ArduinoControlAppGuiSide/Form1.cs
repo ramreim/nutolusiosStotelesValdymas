@@ -30,7 +30,7 @@ namespace ArduinoControlAppGuiSide
             
             InitializeComponent();
 
-            this.Controls.AddRange(UIElements.Config().ToArray());
+            this.Controls.AddRange(UIElements.GenerateUIElements().ToArray());
 
             #endregion UI_ELEMENTS
         }
