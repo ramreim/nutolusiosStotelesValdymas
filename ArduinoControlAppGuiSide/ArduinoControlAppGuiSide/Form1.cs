@@ -25,15 +25,19 @@ namespace ArduinoControlAppGuiSide
 
             UIElements.btnConnect.Click += new System.EventHandler(this.ConnectBtnClick);
             UIElements.btnOnD02.Click += new System.EventHandler(this.CommandButtonClick);
-            UIElements.btnOffD02.Click+= new System.EventHandler(this.CommandButtonClick);
+            UIElements.btnOffD02.Click += new System.EventHandler(this.CommandButtonClick);
             UIElements.btnOnD03.Click += new System.EventHandler(this.CommandButtonClick);
             UIElements.btnOffD03.Click += new System.EventHandler(this.CommandButtonClick);
             UIElements.btnOnD04.Click += new System.EventHandler(this.CommandButtonClick);
             UIElements.btnOffD04.Click += new System.EventHandler(this.CommandButtonClick);
             UIElements.btnOnD05.Click += new System.EventHandler(this.CommandButtonClick);
             UIElements.btnOffD05.Click += new System.EventHandler(this.CommandButtonClick);
-            
+
+            this.Size = new Size(700, 500);
+
             InitializeComponent();
+
+            this.Text = "Valdymas";
 
             this.Controls.AddRange(UIElements.GenerateUIElements(existingSerialPorts).ToArray());
 
