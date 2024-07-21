@@ -48,10 +48,10 @@ namespace ArduinoControlAppGuiSide
 
             var lastUsedPort = File.ReadAllLines("lastPort.txt");
 
-            if (existingSerialPorts.Contains(lastUsedPort[0]))
-                ((ComboBox)this.Controls[0]).Text = lastUsedPort[0];
+            if (existingSerialPorts.Contains(lastUsedPort.FirstOrDefault()))
+                UIElements.cmbBoxPortNumber.Text = lastUsedPort.FirstOrDefault();
             else
-                ((ComboBox)this.Controls[0]).Text = "";
+                UIElements.cmbBoxPortNumber.Text = "";
         }
 
         private void CommandButtonClick(object sender, EventArgs e)
