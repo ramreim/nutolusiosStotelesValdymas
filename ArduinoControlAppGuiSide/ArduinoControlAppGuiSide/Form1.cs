@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ namespace ArduinoControlAppGuiSide
 {
     public partial class Form1 : Form
     {
+        private static string[] existngSerialPorts = SerialPort.GetPortNames();
+
         public static SerialPort port = null;
 
         public Form1()
@@ -30,9 +33,19 @@ namespace ArduinoControlAppGuiSide
             
             InitializeComponent();
 
-            this.Controls.AddRange(UIElements.GenerateUIElements().ToArray());
+            this.Controls.AddRange(UIElements.GenerateUIElements(existngSerialPorts).ToArray());
 
             #endregion UI_ELEMENTS
+
+
+            var lastUsedPort = File.ReadAllLines("lastPort.txt");
+
+            if (existngSerialPorts.Contains(lastUsedPort[0]))
+                ((ComboBox)this.Controls[0]).Text = lastUsedPort[0];
+            else
+                ((ComboBox)this.Controls[0]).Text = "";
+
+
         }
 
         private void CommandButtonClick(object sender, EventArgs e)
@@ -44,6 +57,9 @@ namespace ArduinoControlAppGuiSide
 
         private void ConnectBtnClick(object sender, EventArgs e)
         {
+
+
+
             this.Controls[0].Visible = false;
             this.Controls[1].Visible = false;
             this.Controls[2].Visible = true;
@@ -55,14 +71,14 @@ namespace ArduinoControlAppGuiSide
             this.Controls[8].Visible = true;
             this.Controls[9].Visible = true;
 
-            var selectedPort = ((ComboBox)this.Controls[0]).SelectedItem.ToString();           
-
-            port = new SerialPort(selectedPort, 9600, Parity.None, 8);
+            port = new SerialPort(((ComboBox)this.Controls[0]).SelectedItem.ToString(), 9600, Parity.None, 8);
 
             if (port.IsOpen)
                 port.Close();
 
             port.Open();
+
+            File.WriteAllText("lastPort.txt", port.PortName);
         }
     }
 }

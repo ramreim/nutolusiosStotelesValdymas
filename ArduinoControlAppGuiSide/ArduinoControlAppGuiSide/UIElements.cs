@@ -22,9 +22,9 @@ namespace ArduinoControlAppGuiSide
 
         private static List<Control> uiControlsList = new List<Control>();
 
-        public static List<Control> GenerateUIElements()
+        public static List<Control> GenerateUIElements(string[] ports)
         {
-            var ports = SerialPort.GetPortNames();
+           
 
             cmbBoxPortNumber.Left = 20;
             cmbBoxPortNumber.Top = 20;
