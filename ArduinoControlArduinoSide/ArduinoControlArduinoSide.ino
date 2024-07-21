@@ -1,4 +1,9 @@
 
+#include <Servo.h>
+
+Servo myservo;
+
+int pos = 0;
 
 String _cmd = "";
 
@@ -14,6 +19,8 @@ void setup() {
   pinMode(5, OUTPUT);
 
   Serial.begin(9600);
+
+  myservo.attach(8);
 }
 
 void loop()
@@ -26,11 +33,15 @@ void loop()
   if (_cmd.indexOf("SET_ON_d2") >= 0)
   {
     digitalWrite(2, HIGH);
+
+    myservo.write(120);
   }
 
   if (_cmd.indexOf("SET_OFF_d2") >= 0)
   {
     digitalWrite(2, LOW);
+
+    myservo.write(30);
   }
 
   if (_cmd.indexOf("SET_ON_d3") >= 0)
