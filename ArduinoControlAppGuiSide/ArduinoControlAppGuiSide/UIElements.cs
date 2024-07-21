@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -8,6 +9,7 @@ namespace ArduinoControlAppGuiSide
 {
     public static class UIElements
     {
+        private static ComboBox cmbBoxPortNumber = new ComboBox(); 
         public static Button btnConnect = new Button();
         public static Button btnOnD02 = new Button();
         public static Button btnOffD02 = new Button();
@@ -22,7 +24,18 @@ namespace ArduinoControlAppGuiSide
 
         public static List<Control> GenerateUIElements()
         {
-            btnConnect.Left = 20;
+            var ports = SerialPort.GetPortNames();
+
+            cmbBoxPortNumber.Left = 20;
+            cmbBoxPortNumber.Top = 20;
+            cmbBoxPortNumber.Height = 20;
+            cmbBoxPortNumber.Width = 70;
+            cmbBoxPortNumber.Visible = true;
+            cmbBoxPortNumber.Tag = "";
+            cmbBoxPortNumber.Items.AddRange(ports);
+            uiControlsList.Add(cmbBoxPortNumber);
+
+            btnConnect.Left = 120;
             btnConnect.Top = 20;
             btnConnect.Height = 20;
             btnConnect.Width = 70;

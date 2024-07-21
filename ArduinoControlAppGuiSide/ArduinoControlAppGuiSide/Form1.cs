@@ -45,7 +45,7 @@ namespace ArduinoControlAppGuiSide
         private void ConnectBtnClick(object sender, EventArgs e)
         {
             this.Controls[0].Visible = false;
-            this.Controls[1].Visible = true;
+            this.Controls[1].Visible = false;
             this.Controls[2].Visible = true;
             this.Controls[3].Visible = true;
             this.Controls[4].Visible = true;
@@ -53,8 +53,11 @@ namespace ArduinoControlAppGuiSide
             this.Controls[6].Visible = true;
             this.Controls[7].Visible = true;
             this.Controls[8].Visible = true;
+            this.Controls[9].Visible = true;
 
-            port = new SerialPort("COM11", 9600, Parity.None, 8);
+            var selectedPort = ((ComboBox)this.Controls[0]).SelectedItem.ToString();           
+
+            port = new SerialPort(selectedPort, 9600, Parity.None, 8);
 
             if (port.IsOpen)
                 port.Close();
