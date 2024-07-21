@@ -13,9 +13,11 @@ namespace ArduinoControlAppGuiSide
 {
     public partial class Form1 : Form
     {
-        private static string[] existngSerialPorts = SerialPort.GetPortNames();
+        private static string[] existingSerialPorts = SerialPort.GetPortNames();
 
         public static SerialPort port = null;
+
+        private static string LastParametersFileName = "lastPort.txt";
 
         public Form1()
         {
@@ -33,14 +35,18 @@ namespace ArduinoControlAppGuiSide
             
             InitializeComponent();
 
-            this.Controls.AddRange(UIElements.GenerateUIElements(existngSerialPorts).ToArray());
+            this.Controls.AddRange(UIElements.GenerateUIElements(existingSerialPorts).ToArray());
 
             #endregion UI_ELEMENTS
 
+            
+
+            if (!File.Exists(LastParametersFileName))
+                File.WriteAllText(LastParametersFileName, "COM1");
 
             var lastUsedPort = File.ReadAllLines("lastPort.txt");
 
-            if (existngSerialPorts.Contains(lastUsedPort[0]))
+            if (existingSerialPorts.Contains(lastUsedPort[0]))
                 ((ComboBox)this.Controls[0]).Text = lastUsedPort[0];
             else
                 ((ComboBox)this.Controls[0]).Text = "";
@@ -57,9 +63,6 @@ namespace ArduinoControlAppGuiSide
 
         private void ConnectBtnClick(object sender, EventArgs e)
         {
-
-
-
             this.Controls[0].Visible = false;
             this.Controls[1].Visible = false;
             this.Controls[2].Visible = true;
@@ -78,7 +81,7 @@ namespace ArduinoControlAppGuiSide
 
             port.Open();
 
-            File.WriteAllText("lastPort.txt", port.PortName);
+            File.WriteAllText(LastParametersFileName, port.PortName);
         }
     }
 }
