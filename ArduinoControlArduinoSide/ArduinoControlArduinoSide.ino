@@ -3,12 +3,9 @@
 
 Servo myservo;
 
-int pos = 0;
-
 String _cmd = "";
 
 void setup() {
-  // put your setup code here, to run once:
 
   pinMode(2, OUTPUT);
 
@@ -76,39 +73,7 @@ void loop()
     digitalWrite(5, LOW);
   }
 
-  /*
-    char receiveVal;
-
-    if (Serial.available() > 0)
-    {
-      receiveVal = Serial.read();
-
-      if (receiveVal == '1')
-        digitalWrite(2, HIGH);
-      if (receiveVal == '2')
-        digitalWrite(2, LOW);
-
-      if (receiveVal == '3')
-        digitalWrite(3, HIGH);
-      if (receiveVal == '4')
-        digitalWrite(3, LOW);
-
-      if (receiveVal == '5')
-        digitalWrite(4, HIGH);
-      if (receiveVal == '6')
-        digitalWrite(4, LOW);
-
-      if (receiveVal == '7')
-        digitalWrite(5, HIGH);
-      if (receiveVal == '8')
-        digitalWrite(5, LOW);
-    }
-
-  */
-
   _cmd = "";
 
   delay(400);
-
-
 }
