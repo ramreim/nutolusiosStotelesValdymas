@@ -28,16 +28,16 @@ namespace ArduinoControlAppGuiSide
         {
             #region UI_ELEMENTS
 
-            this.btnConnect.Click += new System.EventHandler(this.btn_connect_click);
+            this.btnConnect.Click += new System.EventHandler(this.ConnectBtnClick);
 
-            this.btnOnD02.Click += new System.EventHandler(this.btn5reset_spragtelejimas);
-            this.btnOffD02.Click += new System.EventHandler(this.btn5reset_spragtelejimas);
-            this.btnOnD03.Click += new System.EventHandler(this.btn5reset_spragtelejimas);
-            this.btnOffD03.Click += new System.EventHandler(this.btn5reset_spragtelejimas);
-            this.btnOnD04.Click += new System.EventHandler(this.btn5reset_spragtelejimas);
-            this.btnOffD04.Click += new System.EventHandler(this.btn5reset_spragtelejimas);
-            this.btnOnD05.Click += new System.EventHandler(this.btn5reset_spragtelejimas);
-            this.btnOffD05.Click += new System.EventHandler(this.btn5reset_spragtelejimas);
+            this.btnOnD02.Click += new System.EventHandler(this.CommandButtonClick);
+            this.btnOffD02.Click += new System.EventHandler(this.CommandButtonClick);
+            this.btnOnD03.Click += new System.EventHandler(this.CommandButtonClick);
+            this.btnOffD03.Click += new System.EventHandler(this.CommandButtonClick);
+            this.btnOnD04.Click += new System.EventHandler(this.CommandButtonClick);
+            this.btnOffD04.Click += new System.EventHandler(this.CommandButtonClick);
+            this.btnOnD05.Click += new System.EventHandler(this.CommandButtonClick);
+            this.btnOffD05.Click += new System.EventHandler(this.CommandButtonClick);
 
 
             InitializeComponent();
@@ -122,10 +122,11 @@ namespace ArduinoControlAppGuiSide
             btnOffD05.Visible = true;
             btnOffD05.Tag = "CMD_SET_OFF_d5_pin";
             this.Controls.Add(btnOffD05);
+
             #endregion UI_ELEMENTS
         }
 
-        private void btn5reset_spragtelejimas(object sender, EventArgs e)
+        private void CommandButtonClick(object sender, EventArgs e)
         {
             var cmd = ((Button)sender).Tag.ToString();
 
@@ -133,7 +134,7 @@ namespace ArduinoControlAppGuiSide
         }
 
 
-        private void btn_connect_click(object sender, EventArgs e)
+        private void ConnectBtnClick(object sender, EventArgs e)
         {
             port = new SerialPort("COM11", 9600, Parity.None, 8);
 
