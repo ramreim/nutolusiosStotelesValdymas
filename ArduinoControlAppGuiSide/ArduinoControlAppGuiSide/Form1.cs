@@ -15,7 +15,7 @@ namespace ArduinoControlAppGuiSide
     {
         private static string[] existingSerialPorts = SerialPort.GetPortNames();
 
-        public static SerialPort port = null;
+        private static SerialPort port = null;
 
         private static string LastParametersFileName = "lastPort.txt";
 
@@ -37,9 +37,7 @@ namespace ArduinoControlAppGuiSide
 
             this.Controls.AddRange(UIElements.GenerateUIElements(existingSerialPorts).ToArray());
 
-            #endregion UI_ELEMENTS
-
-            
+            #endregion UI_ELEMENTS            
 
             if (!File.Exists(LastParametersFileName))
                 File.WriteAllText(LastParametersFileName, "COM1");
@@ -50,8 +48,6 @@ namespace ArduinoControlAppGuiSide
                 ((ComboBox)this.Controls[0]).Text = lastUsedPort[0];
             else
                 ((ComboBox)this.Controls[0]).Text = "";
-
-
         }
 
         private void CommandButtonClick(object sender, EventArgs e)
