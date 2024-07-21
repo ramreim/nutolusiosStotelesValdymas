@@ -14,114 +14,23 @@ namespace ArduinoControlAppGuiSide
     {
         public static SerialPort port = null;
 
-        Button btnConnect = new Button();
-        Button btnOnD02 = new Button();
-        Button btnOffD02 = new Button();
-        Button btnOnD03 = new Button();
-        Button btnOffD03 = new Button();
-        Button btnOnD04 = new Button();
-        Button btnOffD04 = new Button();
-        Button btnOnD05 = new Button();
-        Button btnOffD05 = new Button();
-
         public Form1()
         {
             #region UI_ELEMENTS
 
-            this.btnConnect.Click += new System.EventHandler(this.ConnectBtnClick);
-
-            this.btnOnD02.Click += new System.EventHandler(this.CommandButtonClick);
-            this.btnOffD02.Click += new System.EventHandler(this.CommandButtonClick);
-            this.btnOnD03.Click += new System.EventHandler(this.CommandButtonClick);
-            this.btnOffD03.Click += new System.EventHandler(this.CommandButtonClick);
-            this.btnOnD04.Click += new System.EventHandler(this.CommandButtonClick);
-            this.btnOffD04.Click += new System.EventHandler(this.CommandButtonClick);
-            this.btnOnD05.Click += new System.EventHandler(this.CommandButtonClick);
-            this.btnOffD05.Click += new System.EventHandler(this.CommandButtonClick);
-
-
+            UIElements.btnConnect.Click += new System.EventHandler(this.ConnectBtnClick);
+            UIElements.btnOnD02.Click += new System.EventHandler(this.CommandButtonClick);
+            UIElements.btnOffD02.Click+= new System.EventHandler(this.CommandButtonClick);
+            UIElements.btnOnD03.Click += new System.EventHandler(this.CommandButtonClick);
+            UIElements.btnOffD03.Click += new System.EventHandler(this.CommandButtonClick);
+            UIElements.btnOnD04.Click += new System.EventHandler(this.CommandButtonClick);
+            UIElements.btnOffD04.Click += new System.EventHandler(this.CommandButtonClick);
+            UIElements.btnOnD05.Click += new System.EventHandler(this.CommandButtonClick);
+            UIElements.btnOffD05.Click += new System.EventHandler(this.CommandButtonClick);
+            
             InitializeComponent();
 
-            btnConnect.Left = 20;
-            btnConnect.Top = 20;
-            btnConnect.Height = 20;
-            btnConnect.Width = 70;
-            btnConnect.Text = "Connect";
-            btnConnect.Visible = true;
-            btnConnect.Tag = "";
-            this.Controls.Add(btnConnect);
-
-            btnOnD02.Left = 20;
-            btnOnD02.Top = 50;
-            btnOnD02.Height = 20;
-            btnOnD02.Width = 70;
-            btnOnD02.Text = "D02 ON";
-            btnOnD02.Visible = true;
-            btnOnD02.Tag = "CMD_SET_ON_d2_pin";
-            this.Controls.Add(btnOnD02);
-
-            btnOffD02.Left = 100;
-            btnOffD02.Top = btnOnD02.Top;
-            btnOffD02.Height = 20;
-            btnOffD02.Width = 70;
-            btnOffD02.Text = "D02 OFF";
-            btnOffD02.Visible = true;
-            btnOffD02.Tag = "CMD_SET_OFF_d2_pin";
-            this.Controls.Add(btnOffD02);
-
-            btnOnD03.Left = btnOnD02.Left;
-            btnOnD03.Top = btnOnD02.Top + 30;
-            btnOnD03.Height = btnOnD02.Height;
-            btnOnD03.Width = btnOnD02.Width;
-            btnOnD03.Text = "D03 ON";
-            btnOnD03.Visible = true;
-            btnOnD03.Tag = "CMD_SET_ON_d3_pin";
-            this.Controls.Add(btnOnD03);
-
-            btnOffD03.Left = btnOffD02.Left;
-            btnOffD03.Top = btnOffD02.Top + 30;
-            btnOffD03.Height = btnOffD02.Height;
-            btnOffD03.Width = btnOffD02.Width;
-            btnOffD03.Text = "D03 OFF";
-            btnOffD03.Visible = true;
-            btnOffD03.Tag = "CMD_SET_OFF_d3_pin";
-            this.Controls.Add(btnOffD03);
-
-            btnOnD04.Left = btnOnD02.Left;
-            btnOnD04.Top = btnOnD03.Top + 30;
-            btnOnD04.Height = btnOnD02.Height;
-            btnOnD04.Width = btnOnD02.Width;
-            btnOnD04.Text = "D04 ON";
-            btnOnD04.Visible = true;
-            btnOnD04.Tag = "CMD_SET_ON_d4_pin";
-            this.Controls.Add(btnOnD04);
-
-            btnOffD04.Left = btnOffD02.Left;
-            btnOffD04.Top = btnOffD03.Top + 30;
-            btnOffD04.Height = btnOffD02.Height;
-            btnOffD04.Width = btnOffD02.Width;
-            btnOffD04.Text = "D04 OFF";
-            btnOffD04.Visible = true;
-            btnOffD04.Tag = "CMD_SET_OFF_d4_pin";
-            this.Controls.Add(btnOffD04);
-
-            btnOnD05.Left = btnOnD02.Left;
-            btnOnD05.Top = btnOnD04.Top + 30;
-            btnOnD05.Height = btnOnD02.Height;
-            btnOnD05.Width = btnOnD02.Width;
-            btnOnD05.Text = "D05 ON";
-            btnOnD05.Visible = true;
-            btnOnD05.Tag = "CMD_SET_ON_d5_pin";
-            this.Controls.Add(btnOnD05);
-
-            btnOffD05.Left = btnOffD02.Left;
-            btnOffD05.Top = btnOffD04.Top + 30;
-            btnOffD05.Height = btnOffD02.Height;
-            btnOffD05.Width = btnOffD02.Width;
-            btnOffD05.Text = "D05 OFF";
-            btnOffD05.Visible = true;
-            btnOffD05.Tag = "CMD_SET_OFF_d5_pin";
-            this.Controls.Add(btnOffD05);
+            this.Controls.AddRange(UIElements.Config().ToArray());
 
             #endregion UI_ELEMENTS
         }
@@ -133,9 +42,18 @@ namespace ArduinoControlAppGuiSide
             port.Write(cmd);
         }
 
-
         private void ConnectBtnClick(object sender, EventArgs e)
         {
+            this.Controls[0].Visible = false;
+            this.Controls[1].Visible = true;
+            this.Controls[2].Visible = true;
+            this.Controls[3].Visible = true;
+            this.Controls[4].Visible = true;
+            this.Controls[5].Visible = true;
+            this.Controls[6].Visible = true;
+            this.Controls[7].Visible = true;
+            this.Controls[8].Visible = true;
+
             port = new SerialPort("COM11", 9600, Parity.None, 8);
 
             if (port.IsOpen)
