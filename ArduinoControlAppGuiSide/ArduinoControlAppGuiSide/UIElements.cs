@@ -9,7 +9,7 @@ namespace ArduinoControlAppGuiSide
 {
     public static class UIElements
     {
-        private static ComboBox cmbBoxPortNumber = new ComboBox(); 
+        public static ComboBox cmbBoxPortNumber = new ComboBox(); 
         public static Button btnConnect = new Button();
         public static Button btnOnD02 = new Button();
         public static Button btnOffD02 = new Button();
@@ -24,8 +24,6 @@ namespace ArduinoControlAppGuiSide
 
         public static List<Control> GenerateUIElements(string[] ports)
         {
-           
-
             cmbBoxPortNumber.Left = 20;
             cmbBoxPortNumber.Top = 20;
             cmbBoxPortNumber.Height = 20;

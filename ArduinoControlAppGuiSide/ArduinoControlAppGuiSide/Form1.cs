@@ -63,16 +63,16 @@ namespace ArduinoControlAppGuiSide
 
         private void ConnectBtnClick(object sender, EventArgs e)
         {
-            this.Controls[0].Visible = false;
-            this.Controls[1].Visible = false;
-            this.Controls[2].Visible = true;
-            this.Controls[3].Visible = true;
-            this.Controls[4].Visible = true;
-            this.Controls[5].Visible = true;
-            this.Controls[6].Visible = true;
-            this.Controls[7].Visible = true;
-            this.Controls[8].Visible = true;
-            this.Controls[9].Visible = true;
+            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnConnect.Text).SingleOrDefault().Visible = false;
+            Controls.Cast<Control>().Where(x => x.Text == UIElements.cmbBoxPortNumber.Text).SingleOrDefault().Visible = false;
+            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOnD02.Text).SingleOrDefault().Visible = true;
+            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOffD02.Text).SingleOrDefault().Visible = true;
+            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOnD03.Text).SingleOrDefault().Visible = true;
+            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOffD03.Text).SingleOrDefault().Visible = true;
+            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOnD04.Text).SingleOrDefault().Visible = true;
+            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOffD04.Text).SingleOrDefault().Visible = true;
+            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOnD05.Text).SingleOrDefault().Visible = true;
+            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOffD05.Text).SingleOrDefault().Visible = true;
 
             port = new SerialPort(((ComboBox)this.Controls[0]).SelectedItem.ToString(), 9600, Parity.None, 8);
 
