@@ -4,11 +4,9 @@
 //197
 //173
 
+#include "Constants.h"
+
 int timer_cycle_actual = 0;
-
-const int _release = 185;
-
-const int _push = 190;
 
 int _sp = 0;
 
@@ -20,19 +18,27 @@ String _cmd = "";
 
 void setup() {
 
-  _sp = _release;
+  _sp = RELEASE;
 
-  pinMode(2, OUTPUT);
+  pinMode(LED_02_PIN, OUTPUT);
 
-  pinMode(3, OUTPUT);
+  pinMode(LED_03_PIN, OUTPUT);
 
-  pinMode(4, OUTPUT);
+  pinMode(LED_04_PIN, OUTPUT);
 
-  pinMode(5, OUTPUT);
+  pinMode(LED_05_PIN, OUTPUT);
 
-  pinMode(9, OUTPUT);
+  pinMode(MOTOR_CONTROL_09_PIN, OUTPUT);
 
-  digitalWrite(9, LOW);
+  digitalWrite(LED_02_PIN, LOW);
+
+  digitalWrite(LED_03_PIN, LOW);
+
+  digitalWrite(LED_04_PIN, LOW);
+
+  digitalWrite(LED_05_PIN, LOW);
+
+  digitalWrite(MOTOR_CONTROL_09_PIN, LOW);
 
   Serial.begin(9600);
 
@@ -61,12 +67,12 @@ ISR(TIMER1_COMPA_vect)
 
   if (timer_cycle_actual == _sp && CycleCounterAfterLastReceivedCommand < 9)
   {
-    digitalWrite(9, HIGH);
+    digitalWrite(MOTOR_CONTROL_09_PIN, HIGH);
   }
 
   if (timer_cycle_actual >= 200)
   {
-    digitalWrite(9, LOW);
+    digitalWrite(MOTOR_CONTROL_09_PIN, LOW);
 
     timer_cycle_actual = 0;
   }
@@ -83,48 +89,48 @@ void loop()
   {
     CycleCounterAfterLastReceivedCommand = 0;
 
-    digitalWrite(2, HIGH);
+    digitalWrite(LED_02_PIN, HIGH);
 
-    _sp = _push;
+    _sp = PUSH;
   }
 
   if (_cmd.indexOf("SET_OFF_d2") >= 0)
   {
     CycleCounterAfterLastReceivedCommand = 0;
 
-    digitalWrite(2, LOW);
+    digitalWrite(LED_02_PIN, LOW);
 
-    _sp = _release;
+    _sp = RELEASE;
   }
 
   if (_cmd.indexOf("SET_ON_d3") >= 0)
   {
-    digitalWrite(3, HIGH);
+    digitalWrite(LED_03_PIN, HIGH);
   }
 
   if (_cmd.indexOf("SET_OFF_d3") >= 0)
   {
-    digitalWrite(3, LOW);
+    digitalWrite(LED_03_PIN, LOW);
   }
 
   if (_cmd.indexOf("SET_ON_d4") >= 0)
   {
-    //digitalWrite(4, HIGH);
+    //digitalWrite(LED_04_PIN, HIGH);
   }
 
   if (_cmd.indexOf("SET_OFF_d4") >= 0)
   {
-    //digitalWrite(4, LOW);
+    //digitalWrite(LED_04_PIN, LOW);
   }
 
   if (_cmd.indexOf("SET_ON_d5") >= 0)
   {
-    digitalWrite(5, HIGH);
+    digitalWrite(LED_05_PIN, HIGH);
   }
 
   if (_cmd.indexOf("SET_OFF_d5") >= 0)
   {
-    digitalWrite(5, LOW);
+    digitalWrite(LED_05_PIN, LOW);
   }
 
   _cmd = "";
@@ -145,11 +151,11 @@ void loop()
 
   if (CycleCounterAfterLastReceivedCommand > 9)
   {
-    digitalWrite(4, HIGH);
+    digitalWrite(LED_04_PIN, HIGH);
   }
   else
   {
-    digitalWrite(4, LOW);
+    digitalWrite(LED_04_PIN, LOW);
   }
 
   delay(400);
