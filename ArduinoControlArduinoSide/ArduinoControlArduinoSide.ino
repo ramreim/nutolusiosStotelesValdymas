@@ -1,26 +1,25 @@
 
 //https://jawhersebai.com/tutorials/how-to-use-the-sg90-servo-motor/
 
-
 int timer_cycle_actual = 0;
 
 int analog_val = 0;
 
-int perskaiciuota = 190;
+const int _release = 185;
 
-int pasikeitimo_taimeris = 0;
+const int _push = 190;
 
-int isvesta = 0;
+int _sp = 0;
 
+int CycleCounterAfterLastReceivedCommand = 0;
 
-bool mygtukas_dabar = false;
-bool mygtukas_prev = false;
-
-
+int _printedToSerialPort = 0;
 
 String _cmd = "";
 
 void setup() {
+
+  _sp = _release;
 
   pinMode(2, OUTPUT);
 
@@ -55,12 +54,9 @@ void setup() {
   sei();
 }
 
-
 ISR(TIMER1_COMPA_vect)
 {
   timer_cycle_actual++;
-
-
 
   /*
     if (timer_cycle_actual >= 10000)
@@ -73,7 +69,7 @@ ISR(TIMER1_COMPA_vect)
   */
   //197
   //173
-  if (timer_cycle_actual == perskaiciuota && pasikeitimo_taimeris < 9)
+  if (timer_cycle_actual == _sp && CycleCounterAfterLastReceivedCommand < 9)
   {
     digitalWrite(9, HIGH);
   }
@@ -82,7 +78,6 @@ ISR(TIMER1_COMPA_vect)
   //{
   //digitalWrite(9, LOW);
   //}
-
 
   if (timer_cycle_actual >= 200)
   {
@@ -94,7 +89,6 @@ ISR(TIMER1_COMPA_vect)
   }
 }
 
-
 void loop()
 {
   while (Serial.available() > 0)
@@ -104,27 +98,20 @@ void loop()
 
   if (_cmd.indexOf("SET_ON_d2") >= 0)
   {
-
-    pasikeitimo_taimeris = 0;
-
+    CycleCounterAfterLastReceivedCommand = 0;
 
     digitalWrite(2, HIGH);
 
-    perskaiciuota = 180;
-
-
+    _sp = _push;
   }
 
   if (_cmd.indexOf("SET_OFF_d2") >= 0)
   {
-
-    pasikeitimo_taimeris = 0;
+    CycleCounterAfterLastReceivedCommand = 0;
 
     digitalWrite(2, LOW);
 
-    perskaiciuota = 190;
-
-
+    _sp = _release;
   }
 
   if (_cmd.indexOf("SET_ON_d3") >= 0)
@@ -137,7 +124,6 @@ void loop()
     digitalWrite(3, LOW);
   }
 
-
   if (_cmd.indexOf("SET_ON_d4") >= 0)
   {
     //digitalWrite(4, HIGH);
@@ -147,7 +133,6 @@ void loop()
   {
     //digitalWrite(4, LOW);
   }
-
 
   if (_cmd.indexOf("SET_ON_d5") >= 0)
   {
@@ -161,34 +146,28 @@ void loop()
 
   _cmd = "";
 
-  if (isvesta < 300)
+  if (_printedToSerialPort < 300)
   {
-    //Serial.println(isvesta);
+    Serial.println(_printedToSerialPort);
 
-    isvesta++;
-
+    _printedToSerialPort++;
   }
 
+  Serial.println(CycleCounterAfterLastReceivedCommand);
 
-  Serial.println(pasikeitimo_taimeris);
-
-  if (pasikeitimo_taimeris < 15)
+  if (CycleCounterAfterLastReceivedCommand < 15)
   {
-    pasikeitimo_taimeris++;
+    CycleCounterAfterLastReceivedCommand++;
   }
 
-
-  if (pasikeitimo_taimeris > 9)
+  if (CycleCounterAfterLastReceivedCommand > 9)
   {
     digitalWrite(4, HIGH);
   }
   else
   {
     digitalWrite(4, LOW);
-
   }
-
-
 
   delay(400);
 
