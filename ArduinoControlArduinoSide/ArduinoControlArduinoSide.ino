@@ -8,10 +8,6 @@
 
 int timer_cycle_actual = 0;
 
-const int _release = 185;
-
-const int _push = 190;
-
 int _sp = 0;
 
 int CycleCounterAfterLastReceivedCommand = 0;
@@ -22,7 +18,7 @@ String _cmd = "";
 
 void setup() {
 
-  _sp = _release;
+  _sp = RELEASE;
 
   pinMode(LED_02_PIN, OUTPUT);
 
@@ -95,7 +91,7 @@ void loop()
 
     digitalWrite(LED_02_PIN, HIGH);
 
-    _sp = _push;
+    _sp = PUSH;
   }
 
   if (_cmd.indexOf("SET_OFF_d2") >= 0)
@@ -104,7 +100,7 @@ void loop()
 
     digitalWrite(LED_02_PIN, LOW);
 
-    _sp = _release;
+    _sp = RELEASE;
   }
 
   if (_cmd.indexOf("SET_ON_d3") >= 0)

@@ -2,6 +2,10 @@
 
 #define Constants_h
 
+#define RELEASE 185
+
+#define PUSH 190
+
 #define MOTOR_CONTROL_09_PIN 9
 
 #define LED_02_PIN 2
