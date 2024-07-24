@@ -1,6 +1,9 @@
 
 //https://jawhersebai.com/tutorials/how-to-use-the-sg90-servo-motor/
 
+//197
+//173
+
 int timer_cycle_actual = 0;
 
 const int _release = 185;
@@ -56,34 +59,16 @@ ISR(TIMER1_COMPA_vect)
 {
   timer_cycle_actual++;
 
-  /*
-    if (timer_cycle_actual >= 10000)
-    {
-    Serial.println("safd");
-
-    timer_cycle_actual = 0;
-
-    }
-  */
-  //197
-  //173
   if (timer_cycle_actual == _sp && CycleCounterAfterLastReceivedCommand < 9)
   {
     digitalWrite(9, HIGH);
   }
-
-  //if (timer_cycle_actual == 19)
-  //{
-  //digitalWrite(9, LOW);
-  //}
 
   if (timer_cycle_actual >= 200)
   {
     digitalWrite(9, LOW);
 
     timer_cycle_actual = 0;
-
-    //Serial.println("safd");
   }
 }
 
