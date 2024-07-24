@@ -3,8 +3,6 @@
 
 int timer_cycle_actual = 0;
 
-int analog_val = 0;
-
 const int _release = 185;
 
 const int _push = 190;
@@ -170,5 +168,4 @@ void loop()
   }
 
   delay(400);
-
 }
