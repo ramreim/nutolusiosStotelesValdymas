@@ -63,25 +63,32 @@ namespace ArduinoControlAppGuiSide
 
         private void ConnectBtnClick(object sender, EventArgs e)
         {
-            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnConnect.Text).SingleOrDefault().Visible = false;
-            Controls.Cast<Control>().Where(x => x.Text == UIElements.cmbBoxPortNumber.Text).SingleOrDefault().Visible = false;
-            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOnD02.Text).SingleOrDefault().Visible = true;
-            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOffD02.Text).SingleOrDefault().Visible = true;
-            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOnD03.Text).SingleOrDefault().Visible = true;
-            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOffD03.Text).SingleOrDefault().Visible = true;
-            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOnD04.Text).SingleOrDefault().Visible = true;
-            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOffD04.Text).SingleOrDefault().Visible = true;
-            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOnD05.Text).SingleOrDefault().Visible = true;
-            Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOffD05.Text).SingleOrDefault().Visible = true;
+            if (existingSerialPorts.Contains(((ComboBox)this.Controls[0]).Text) && ((ComboBox)this.Controls[0]).SelectedItem != null)
+            {
+                Controls.Cast<Control>().Where(x => x.Text == UIElements.btnConnect.Text).SingleOrDefault().Visible = false;
+                Controls.Cast<Control>().Where(x => x.Text == UIElements.cmbBoxPortNumber.Text).SingleOrDefault().Visible = false;
+                Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOnD02.Text).SingleOrDefault().Visible = true;
+                Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOffD02.Text).SingleOrDefault().Visible = true;
+                Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOnD03.Text).SingleOrDefault().Visible = true;
+                Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOffD03.Text).SingleOrDefault().Visible = true;
+                Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOnD04.Text).SingleOrDefault().Visible = true;
+                Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOffD04.Text).SingleOrDefault().Visible = true;
+                Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOnD05.Text).SingleOrDefault().Visible = true;
+                Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOffD05.Text).SingleOrDefault().Visible = true;
 
-            port = new SerialPort(((ComboBox)this.Controls[0]).SelectedItem.ToString(), 9600, Parity.None, 8);
+                port = new SerialPort(((ComboBox)this.Controls[0]).SelectedItem.ToString(), 9600, Parity.None, 8);
 
-            if (port.IsOpen)
-                port.Close();
+                if (port.IsOpen)
+                    port.Close();
 
-            port.Open();
+                port.Open();
 
-            File.WriteAllText(LastParametersFileName, port.PortName);
+                File.WriteAllText(LastParametersFileName, port.PortName);
+            }
+            else
+            {
+                MessageBox.Show("Serial port error, maybe com port not selected");
+            }
         }
     }
 }
