@@ -30,9 +30,9 @@ void setup() {
 
   pinMode(MOTOR_CONTROL_09_PIN, OUTPUT);
 
-  digitalWrite(LED_02_PIN, LOW);
+  digitalWrite(LED_02_PIN, HIGH);
 
-  digitalWrite(LED_03_PIN, LOW);
+  digitalWrite(LED_03_PIN, HIGH);
 
   digitalWrite(LED_04_PIN, LOW);
 
@@ -89,7 +89,7 @@ void loop()
   {
     CycleCounterAfterLastReceivedCommand = 0;
 
-    digitalWrite(LED_02_PIN, HIGH);
+    digitalWrite(LED_02_PIN, LOW);
 
     _sp = PUSH;
   }
@@ -98,19 +98,19 @@ void loop()
   {
     CycleCounterAfterLastReceivedCommand = 0;
 
-    digitalWrite(LED_02_PIN, LOW);
+    digitalWrite(LED_02_PIN, HIGH);
 
     _sp = RELEASE;
   }
 
   if (_cmd.indexOf("SET_ON_d3") >= 0)
   {
-    digitalWrite(LED_03_PIN, HIGH);
+    digitalWrite(LED_03_PIN, LOW);
   }
 
   if (_cmd.indexOf("SET_OFF_d3") >= 0)
   {
-    digitalWrite(LED_03_PIN, LOW);
+    digitalWrite(LED_03_PIN, HIGH);
   }
 
   if (_cmd.indexOf("SET_ON_d4") >= 0)
