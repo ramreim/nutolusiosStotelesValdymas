@@ -63,7 +63,7 @@ namespace ArduinoControlAppGuiSide
 
         private void ConnectBtnClick(object sender, EventArgs e)
         {
-            if (existingSerialPorts.Contains(((ComboBox)this.Controls[0]).Text) && ((ComboBox)this.Controls[0]).SelectedItem != null)
+            if (existingSerialPorts.Contains(UIElements.cmbBoxPortNumber.Text) && (UIElements.cmbBoxPortNumber).SelectedItem != null)
             {
                 Controls.Cast<Control>().Where(x => x.Text == UIElements.btnConnect.Text).SingleOrDefault().Visible = false;
                 Controls.Cast<Control>().Where(x => x.Text == UIElements.cmbBoxPortNumber.Text).SingleOrDefault().Visible = false;
@@ -76,7 +76,7 @@ namespace ArduinoControlAppGuiSide
                 Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOnD05.Text).SingleOrDefault().Visible = true;
                 Controls.Cast<Control>().Where(x => x.Text == UIElements.btnOffD05.Text).SingleOrDefault().Visible = true;
 
-                port = new SerialPort(((ComboBox)this.Controls[0]).SelectedItem.ToString(), 9600, Parity.None, 8);
+                port = new SerialPort(UIElements.cmbBoxPortNumber.SelectedItem.ToString(), 9600, Parity.None, 8);
 
                 if (port.IsOpen)
                     port.Close();
