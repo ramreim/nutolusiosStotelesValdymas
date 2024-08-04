@@ -10,16 +10,14 @@ int ServoDrivePulsePWMCounter = 0;
 
 unsigned int NeedToCheckReceivedDataInSerialPortCycleCounter = 0;
 
-unsigned int NeedToPrintDataToSerialPortForUserCounter = 0;
-
 int _sp = 0;
 
 unsigned int CycleCounterAfterLastReceivedCommand = 0;
 
 String _cmd = "";
 
-void setup() {
-
+void setup()
+{
   _sp = RELEASE;
 
   pinMode(LED_02_PIN, OUTPUT);
@@ -83,9 +81,6 @@ ISR(TIMER1_COMPA_vect)
 
   if (NeedToCheckReceivedDataInSerialPortCycleCounter < 11000)
     NeedToCheckReceivedDataInSerialPortCycleCounter++;
-
-  if (NeedToPrintDataToSerialPortForUserCounter < 100005)
-    NeedToPrintDataToSerialPortForUserCounter++;
 
   if (CycleCounterAfterLastReceivedCommand < 41000)
     CycleCounterAfterLastReceivedCommand++;
@@ -179,14 +174,4 @@ void loop()
     NeedToCheckReceivedDataInSerialPortCycleCounter = 0;
   }
 
-  if (NeedToPrintDataToSerialPortForUserCounter > 5000)
-  {
-    Serial.println("CycleCounterAfterLastReceivedCommand = " + String(CycleCounterAfterLastReceivedCommand));
-
-    Serial.println("NeedToCheckReceivedDataInSerialPortCycleCounter = " + String(NeedToCheckReceivedDataInSerialPortCycleCounter));
-
-    Serial.println("NeedToPrintDataToSerialPortForUserCounter = " + String(NeedToPrintDataToSerialPortForUserCounter));
-
-    NeedToPrintDataToSerialPortForUserCounter = 0;
-  }
 }
