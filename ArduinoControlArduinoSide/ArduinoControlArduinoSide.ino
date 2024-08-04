@@ -8,7 +8,9 @@
 
 int timer_cycle_actual = 0;
 
-unsigned int NeedToCheckReceivedDataInSerialPortCycleCounterByOverflowInterrupt = 0;
+unsigned int NeedToCheckReceivedDataInSerialPortCycleCounter = 0;
+
+unsigned int NeedToPrintDataToSerialPortForUserCounter = 0;
 
 int _sp = 0;
 
@@ -40,7 +42,7 @@ void setup() {
 
   digitalWrite(MOTOR_CONTROL_09_PIN, LOW);
 
-  NeedToCheckReceivedDataInSerialPortCycleCounterByOverflowInterrupt = 0;
+  NeedToCheckReceivedDataInSerialPortCycleCounter = 0;
 
   Serial.begin(9600);
 
@@ -79,8 +81,11 @@ ISR(TIMER1_COMPA_vect)
     timer_cycle_actual = 0;
   }
 
-  if (NeedToCheckReceivedDataInSerialPortCycleCounterByOverflowInterrupt < 8000)
-    NeedToCheckReceivedDataInSerialPortCycleCounterByOverflowInterrupt++;
+  if (NeedToCheckReceivedDataInSerialPortCycleCounter < 8000)
+    NeedToCheckReceivedDataInSerialPortCycleCounter++;
+
+  if (NeedToPrintDataToSerialPortForUserCounter < 100000)
+    NeedToPrintDataToSerialPortForUserCounter++;
 }
 
 void loop()
@@ -140,9 +145,16 @@ void loop()
 
   _cmd = "";
 
-  //Serial.println(CycleCounterAfterLastReceivedCommand);
+  if (NeedToPrintDataToSerialPortForUserCounter > 5000)
+  {
+    Serial.println("CycleCounterAfterLastReceivedCommand = " + String(CycleCounterAfterLastReceivedCommand));
 
-  Serial.println(NeedToCheckReceivedDataInSerialPortCycleCounterByOverflowInterrupt);
+    Serial.println("NeedToCheckReceivedDataInSerialPortCycleCounter = " + String(NeedToCheckReceivedDataInSerialPortCycleCounter));
+
+    Serial.println("NeedToPrintDataToSerialPortForUserCounter = " + String(NeedToPrintDataToSerialPortForUserCounter));
+
+    NeedToPrintDataToSerialPortForUserCounter = 0;
+  }
 
   if (CycleCounterAfterLastReceivedCommand < 15)
   {
@@ -158,5 +170,5 @@ void loop()
     digitalWrite(LED_04_PIN, LOW);
   }
 
-  delay(400);
+  //delay(400);
 }
