@@ -87,7 +87,7 @@ namespace ArduinoControlAppGuiSide
             }
             else
             {
-                MessageBox.Show("Serial port error, maybe com port not selected");
+                MessageBox.Show("COM port error, maybe COM port not selected or not exist");
             }
         }
     }
