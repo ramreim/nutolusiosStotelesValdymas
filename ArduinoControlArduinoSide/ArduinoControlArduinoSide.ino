@@ -81,69 +81,107 @@ ISR(TIMER1_COMPA_vect)
     timer_cycle_actual = 0;
   }
 
-  if (NeedToCheckReceivedDataInSerialPortCycleCounter < 8000)
+  if (NeedToCheckReceivedDataInSerialPortCycleCounter < 11000)
     NeedToCheckReceivedDataInSerialPortCycleCounter++;
 
-  if (NeedToPrintDataToSerialPortForUserCounter < 100000)
+  if (NeedToPrintDataToSerialPortForUserCounter < 100005)
     NeedToPrintDataToSerialPortForUserCounter++;
 }
 
 void loop()
 {
-  while (Serial.available() > 0)
+  if (NeedToCheckReceivedDataInSerialPortCycleCounter > 3000)
   {
-    _cmd = _cmd + (char)Serial.read();
+    while (Serial.available() > 0)
+    {
+      _cmd = _cmd + (char)Serial.read();
+    }
+
+    if (_cmd.indexOf("SET_ON_d2") >= 0)
+    {
+      CycleCounterAfterLastReceivedCommand = 0;
+
+      digitalWrite(LED_02_PIN, LOW);
+
+      _sp = PUSH;
+    }
+
+    if (_cmd.indexOf("SET_OFF_d2") >= 0)
+    {
+      CycleCounterAfterLastReceivedCommand = 0;
+
+      digitalWrite(LED_02_PIN, HIGH);
+
+      _sp = RELEASE;
+    }
+
+    if (_cmd.indexOf("SET_ON_d3") >= 0)
+    {
+      CycleCounterAfterLastReceivedCommand = 0;
+      
+      digitalWrite(LED_03_PIN, LOW);
+    }
+
+    if (_cmd.indexOf("SET_OFF_d3") >= 0)
+    {
+      CycleCounterAfterLastReceivedCommand = 0;
+      
+      digitalWrite(LED_03_PIN, HIGH);
+    }
+
+    if (_cmd.indexOf("SET_ON_d4") >= 0)
+    {
+      CycleCounterAfterLastReceivedCommand = 0;
+      
+      //digitalWrite(LED_04_PIN, HIGH);
+    }
+
+    if (_cmd.indexOf("SET_OFF_d4") >= 0)
+    {
+      CycleCounterAfterLastReceivedCommand = 0;
+      
+      //digitalWrite(LED_04_PIN, LOW);
+    }
+
+    if (_cmd.indexOf("SET_ON_d5") >= 0)
+    {
+      CycleCounterAfterLastReceivedCommand = 0;
+      
+      digitalWrite(LED_05_PIN, HIGH);
+    }
+
+    if (_cmd.indexOf("SET_OFF_d5") >= 0)
+    {
+      CycleCounterAfterLastReceivedCommand = 0;
+      
+      digitalWrite(LED_05_PIN, LOW);
+    }
+
+    _cmd = "";
+
+    NeedToCheckReceivedDataInSerialPortCycleCounter = 0;
+
+    if (CycleCounterAfterLastReceivedCommand < 15)
+    {
+      CycleCounterAfterLastReceivedCommand++;
+    }
+
+    if (CycleCounterAfterLastReceivedCommand > 9)
+    {
+      digitalWrite(LED_04_PIN, HIGH);
+    }
+    else
+    {
+      digitalWrite(LED_04_PIN, LOW);
+    }
   }
 
-  if (_cmd.indexOf("SET_ON_d2") >= 0)
+  if (NeedToCheckReceivedDataInSerialPortCycleCounter > 200000)
   {
-    CycleCounterAfterLastReceivedCommand = 0;
-
-    digitalWrite(LED_02_PIN, LOW);
-
-    _sp = PUSH;
+    NeedToCheckReceivedDataInSerialPortCycleCounter = 0;
   }
 
-  if (_cmd.indexOf("SET_OFF_d2") >= 0)
-  {
-    CycleCounterAfterLastReceivedCommand = 0;
 
-    digitalWrite(LED_02_PIN, HIGH);
-
-    _sp = RELEASE;
-  }
-
-  if (_cmd.indexOf("SET_ON_d3") >= 0)
-  {
-    digitalWrite(LED_03_PIN, LOW);
-  }
-
-  if (_cmd.indexOf("SET_OFF_d3") >= 0)
-  {
-    digitalWrite(LED_03_PIN, HIGH);
-  }
-
-  if (_cmd.indexOf("SET_ON_d4") >= 0)
-  {
-    //digitalWrite(LED_04_PIN, HIGH);
-  }
-
-  if (_cmd.indexOf("SET_OFF_d4") >= 0)
-  {
-    //digitalWrite(LED_04_PIN, LOW);
-  }
-
-  if (_cmd.indexOf("SET_ON_d5") >= 0)
-  {
-    digitalWrite(LED_05_PIN, HIGH);
-  }
-
-  if (_cmd.indexOf("SET_OFF_d5") >= 0)
-  {
-    digitalWrite(LED_05_PIN, LOW);
-  }
-
-  _cmd = "";
 
   if (NeedToPrintDataToSerialPortForUserCounter > 5000)
   {
@@ -156,19 +194,7 @@ void loop()
     NeedToPrintDataToSerialPortForUserCounter = 0;
   }
 
-  if (CycleCounterAfterLastReceivedCommand < 15)
-  {
-    CycleCounterAfterLastReceivedCommand++;
-  }
 
-  if (CycleCounterAfterLastReceivedCommand > 9)
-  {
-    digitalWrite(LED_04_PIN, HIGH);
-  }
-  else
-  {
-    digitalWrite(LED_04_PIN, LOW);
-  }
 
   //delay(400);
 }
