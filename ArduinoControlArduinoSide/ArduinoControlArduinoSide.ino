@@ -6,7 +6,7 @@
 
 #include "Constants.h"
 
-int timer_cycle_actual = 0;
+int ServoDrivePulsePWMCounter = 0;
 
 unsigned int NeedToCheckReceivedDataInSerialPortCycleCounter = 0;
 
@@ -67,18 +67,18 @@ void setup() {
 
 ISR(TIMER1_COMPA_vect)
 {
-  timer_cycle_actual++;
+  ServoDrivePulsePWMCounter++;
 
-  if (timer_cycle_actual == _sp && CycleCounterAfterLastReceivedCommand < 40000)
+  if (ServoDrivePulsePWMCounter == _sp && CycleCounterAfterLastReceivedCommand < 40000)
   {
     digitalWrite(MOTOR_CONTROL_09_PIN, HIGH);
   }
 
-  if (timer_cycle_actual >= 200)
+  if (ServoDrivePulsePWMCounter >= 200)
   {
     digitalWrite(MOTOR_CONTROL_09_PIN, LOW);
 
-    timer_cycle_actual = 0;
+    ServoDrivePulsePWMCounter = 0;
   }
 
   if (NeedToCheckReceivedDataInSerialPortCycleCounter < 11000)
