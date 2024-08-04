@@ -14,7 +14,7 @@ unsigned int NeedToPrintDataToSerialPortForUserCounter = 0;
 
 int _sp = 0;
 
-int CycleCounterAfterLastReceivedCommand = 0;
+unsigned int CycleCounterAfterLastReceivedCommand = 0;
 
 String _cmd = "";
 
@@ -69,7 +69,7 @@ ISR(TIMER1_COMPA_vect)
 {
   timer_cycle_actual++;
 
-  if (timer_cycle_actual == _sp && CycleCounterAfterLastReceivedCommand < 9)
+  if (timer_cycle_actual == _sp && CycleCounterAfterLastReceivedCommand < 40000)
   {
     digitalWrite(MOTOR_CONTROL_09_PIN, HIGH);
   }
@@ -86,6 +86,9 @@ ISR(TIMER1_COMPA_vect)
 
   if (NeedToPrintDataToSerialPortForUserCounter < 100005)
     NeedToPrintDataToSerialPortForUserCounter++;
+
+  if (CycleCounterAfterLastReceivedCommand < 41000)
+    CycleCounterAfterLastReceivedCommand++;
 }
 
 void loop()
@@ -118,42 +121,42 @@ void loop()
     if (_cmd.indexOf("SET_ON_d3") >= 0)
     {
       CycleCounterAfterLastReceivedCommand = 0;
-      
+
       digitalWrite(LED_03_PIN, LOW);
     }
 
     if (_cmd.indexOf("SET_OFF_d3") >= 0)
     {
       CycleCounterAfterLastReceivedCommand = 0;
-      
+
       digitalWrite(LED_03_PIN, HIGH);
     }
 
     if (_cmd.indexOf("SET_ON_d4") >= 0)
     {
       CycleCounterAfterLastReceivedCommand = 0;
-      
+
       //digitalWrite(LED_04_PIN, HIGH);
     }
 
     if (_cmd.indexOf("SET_OFF_d4") >= 0)
     {
       CycleCounterAfterLastReceivedCommand = 0;
-      
+
       //digitalWrite(LED_04_PIN, LOW);
     }
 
     if (_cmd.indexOf("SET_ON_d5") >= 0)
     {
       CycleCounterAfterLastReceivedCommand = 0;
-      
+
       digitalWrite(LED_05_PIN, HIGH);
     }
 
     if (_cmd.indexOf("SET_OFF_d5") >= 0)
     {
       CycleCounterAfterLastReceivedCommand = 0;
-      
+
       digitalWrite(LED_05_PIN, LOW);
     }
 
@@ -161,12 +164,7 @@ void loop()
 
     NeedToCheckReceivedDataInSerialPortCycleCounter = 0;
 
-    if (CycleCounterAfterLastReceivedCommand < 15)
-    {
-      CycleCounterAfterLastReceivedCommand++;
-    }
-
-    if (CycleCounterAfterLastReceivedCommand > 9)
+    if (CycleCounterAfterLastReceivedCommand > 40000)
     {
       digitalWrite(LED_04_PIN, HIGH);
     }
@@ -181,8 +179,6 @@ void loop()
     NeedToCheckReceivedDataInSerialPortCycleCounter = 0;
   }
 
-
-
   if (NeedToPrintDataToSerialPortForUserCounter > 5000)
   {
     Serial.println("CycleCounterAfterLastReceivedCommand = " + String(CycleCounterAfterLastReceivedCommand));
@@ -193,8 +189,4 @@ void loop()
 
     NeedToPrintDataToSerialPortForUserCounter = 0;
   }
-
-
-
-  //delay(400);
 }
