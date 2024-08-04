@@ -79,7 +79,7 @@ ISR(TIMER1_COMPA_vect)
     timer_cycle_actual = 0;
   }
 
-  if (NeedToCheckReceivedDataInSerialPortCycleCounterByOverflowInterrupt < 40000)
+  if (NeedToCheckReceivedDataInSerialPortCycleCounterByOverflowInterrupt < 8000)
     NeedToCheckReceivedDataInSerialPortCycleCounterByOverflowInterrupt++;
 }
 
