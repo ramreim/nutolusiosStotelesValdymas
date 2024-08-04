@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace ArduinoControlAppGuiSide
         public static Button btnOffD04 = new Button();
         public static Button btnOnD05 = new Button();
         public static Button btnOffD05 = new Button();
+        public static Label lblComStatus = new Label();
 
         private static List<Control> uiControlsList = new List<Control>();
 
@@ -113,6 +115,16 @@ namespace ArduinoControlAppGuiSide
             btnOffD05.Visible = false;
             btnOffD05.Tag = "CMD_SET_OFF_d5_pin";
             uiControlsList.Add(btnOffD05);
+
+            lblComStatus.Left = 250;
+            lblComStatus.Top = 20;
+            lblComStatus.Height = btnOffD02.Height;
+            lblComStatus.Width = btnOffD02.Width;
+            lblComStatus.Text = "COM cloded";
+            lblComStatus.Visible = true;
+            lblComStatus.BackColor = Color.Red;
+            lblComStatus.Tag = "CMD_COM cloded";
+            uiControlsList.Add(lblComStatus);
 
             return uiControlsList;
         }

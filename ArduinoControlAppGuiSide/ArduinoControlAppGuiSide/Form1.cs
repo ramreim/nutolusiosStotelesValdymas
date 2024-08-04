@@ -83,6 +83,10 @@ namespace ArduinoControlAppGuiSide
 
                 port.Open();
 
+                Controls.Cast<Control>().Where(x => x.Text == UIElements.lblComStatus.Text).SingleOrDefault().Text = "COM opened";
+
+                Controls.Cast<Control>().Where(x => x.Text == UIElements.lblComStatus.Text).SingleOrDefault().BackColor = Color.Green;
+
                 File.WriteAllText(LastParametersFileName, port.PortName);
             }
             else
