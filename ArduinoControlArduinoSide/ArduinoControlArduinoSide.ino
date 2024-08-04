@@ -8,11 +8,11 @@
 
 int timer_cycle_actual = 0;
 
+unsigned int NeedToCheckReceivedDataInSerialPortCycleCounterByOverflowInterrupt = 0;
+
 int _sp = 0;
 
 int CycleCounterAfterLastReceivedCommand = 0;
-
-int _printedToSerialPort = 0;
 
 String _cmd = "";
 
@@ -39,6 +39,8 @@ void setup() {
   digitalWrite(LED_05_PIN, LOW);
 
   digitalWrite(MOTOR_CONTROL_09_PIN, LOW);
+
+  NeedToCheckReceivedDataInSerialPortCycleCounterByOverflowInterrupt = 0;
 
   Serial.begin(9600);
 
@@ -76,6 +78,9 @@ ISR(TIMER1_COMPA_vect)
 
     timer_cycle_actual = 0;
   }
+
+  if (NeedToCheckReceivedDataInSerialPortCycleCounterByOverflowInterrupt < 40000)
+    NeedToCheckReceivedDataInSerialPortCycleCounterByOverflowInterrupt++;
 }
 
 void loop()
@@ -135,14 +140,9 @@ void loop()
 
   _cmd = "";
 
-  if (_printedToSerialPort < 300)
-  {
-    Serial.println(_printedToSerialPort);
+  //Serial.println(CycleCounterAfterLastReceivedCommand);
 
-    _printedToSerialPort++;
-  }
-
-  Serial.println(CycleCounterAfterLastReceivedCommand);
+  Serial.println(NeedToCheckReceivedDataInSerialPortCycleCounterByOverflowInterrupt);
 
   if (CycleCounterAfterLastReceivedCommand < 15)
   {
