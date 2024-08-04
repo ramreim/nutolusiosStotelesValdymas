@@ -36,9 +36,9 @@ void setup() {
 
   digitalWrite(LED_03_PIN, HIGH);
 
-  digitalWrite(LED_04_PIN, LOW);
+  digitalWrite(LED_04_PIN, HIGH);
 
-  digitalWrite(LED_05_PIN, LOW);
+  digitalWrite(LED_05_PIN, HIGH);
 
   digitalWrite(MOTOR_CONTROL_09_PIN, LOW);
 
@@ -136,28 +136,28 @@ void loop()
     {
       CycleCounterAfterLastReceivedCommand = 0;
 
-      //digitalWrite(LED_04_PIN, HIGH);
+      //digitalWrite(LED_04_PIN, LOW);
     }
 
     if (_cmd.indexOf("SET_OFF_d4") >= 0)
     {
       CycleCounterAfterLastReceivedCommand = 0;
 
-      //digitalWrite(LED_04_PIN, LOW);
+      //digitalWrite(LED_04_PIN, HIGH);
     }
 
     if (_cmd.indexOf("SET_ON_d5") >= 0)
     {
       CycleCounterAfterLastReceivedCommand = 0;
 
-      digitalWrite(LED_05_PIN, HIGH);
+      digitalWrite(LED_05_PIN, LOW);
     }
 
     if (_cmd.indexOf("SET_OFF_d5") >= 0)
     {
       CycleCounterAfterLastReceivedCommand = 0;
 
-      digitalWrite(LED_05_PIN, LOW);
+      digitalWrite(LED_05_PIN, HIGH);
     }
 
     _cmd = "";
@@ -166,11 +166,11 @@ void loop()
 
     if (CycleCounterAfterLastReceivedCommand > 40000)
     {
-      digitalWrite(LED_04_PIN, HIGH);
+      digitalWrite(LED_04_PIN, LOW);
     }
     else
     {
-      digitalWrite(LED_04_PIN, LOW);
+      digitalWrite(LED_04_PIN, HIGH);
     }
   }
 
