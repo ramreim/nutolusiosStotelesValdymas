@@ -1,6 +1,5 @@
-#ifndef Constants_h
-
-#define Constants_h
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
 
 #define RELEASE 185
 
