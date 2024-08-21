@@ -1,0 +1,15 @@
+
+
+
+
+kiti pavyzdziai ir info:
+//https://www.instructables.com/Simplest-Arduino-GUI-in-C/
+//C# Arduino GUI to Control the LED
+
+//D:\pc_07_1tb_ssd\programming\Arduino\arduino_projektai_002\socket_w5100_client_001
+//D:\pc_07_1tb_ssd\programming\c_cpp_csharp\vs2015projects\SendCommandsToArduino
+
+
+
+
+
